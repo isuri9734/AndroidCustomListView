@@ -1,4 +1,5 @@
 package com.example.listview;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -34,24 +36,24 @@ public class MainActivity extends AppCompatActivity {
 
         MyAdapter adapter = new MyAdapter(this, mTitle, mDescription, images);
         listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    Toast.makeText(MainActivity.this, "Edge Description", Toast.LENGTH_SHORT).show();
-                }
-                if (position == 0) {
-                    Toast.makeText(MainActivity.this, "Clips Description", Toast.LENGTH_SHORT).show();
-                }
-                if (position == 0) {
-                    Toast.makeText(MainActivity.this, "OCR Description", Toast.LENGTH_SHORT).show();
-                }
-                if (position == 0) {
-                    Toast.makeText(MainActivity.this, "Tflite  Description", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                if (position == 0) {
+//                    Toast.makeText(MainActivity.this, "Edge Description", Toast.LENGTH_SHORT).show();
+//                }
+//                if (position == 0) {
+//                    Toast.makeText(MainActivity.this, "Clips Description", Toast.LENGTH_SHORT).show();
+//                }
+//                if (position == 0) {
+//                    Toast.makeText(MainActivity.this, "OCR Description", Toast.LENGTH_SHORT).show();
+//                }
+//                if (position == 0) {
+//                    Toast.makeText(MainActivity.this, "Tflite  Description", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
 
     class MyAdapter extends ArrayAdapter<String> {
@@ -76,15 +78,38 @@ public class MainActivity extends AppCompatActivity {
             ImageView images = row.findViewById(R.id.image);
             TextView myTitle = row.findViewById(R.id.textView1);
             TextView myDescription = row.findViewById(R.id.textView2);
+            Button button = row.findViewById(R.id.btn);
+
+            myTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Text Working", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Button Working", Toast.LENGTH_SHORT).show();
+                    openActivity2();
+                }
+            });
 
             // now set our resources on views
             images.setImageResource(rImages[position]);
             myTitle.setText(rTitle[position]);
             myDescription.setText(rDescription[position]);
 
+
             return row;
 
         }
     }
 
-}
+
+    private void openActivity2() {
+        Intent intent = new Intent(this, NewPage.class);
+        startActivity(intent);
+
+    }
+    }
